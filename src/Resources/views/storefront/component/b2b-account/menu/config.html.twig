@@ -1,0 +1,92 @@
+{% set pathInfo =  app.request.pathInfo %}
+
+{% set homeLink = 'frontend.account.home.page' %}
+{% set profileLink = 'frontend.account.profile.page' %}
+{% set paymentLink = 'frontend.account.payment.page' %}
+{% set addressesLink = 'frontend.account.address.page' %}
+
+{# orders #}
+{% set orderLink =  'frontend.account.order.page' %}
+{% set fastSaleSearchLink =  '/account/fast-sale/products/search' %}
+{% set fastSaleImportLink =  '/account/fast-sale/products/import' %}
+{% set orderListLink =  'frontend.orderlist.index' %}
+{% set subscriptionPageLink =  'frontend.account.subscription.page' %}
+{% set subscriptionViewLink =  'frontend.account.subscription-view.page' %}
+
+{% set menuItems = {
+    home: {
+        position: 10,
+        link: {
+            url: path(homeLink),
+            text: 'account.overviewLink'
+        },
+        icon: 'view-grid-solid',
+        isActive: activeRoute is same as(homeLink)
+    },
+    profile: {
+        position: 20,
+        link: {
+            text: 'account.profileLink'
+        },
+        icon: 'avatar-solid',
+        isActive: activeRoute is same as(profileLink)
+                or activeRoute is same as(paymentLink)
+                or activeRoute is same as(addressesLink)
+    },
+    profile_link: {
+        group: 'profile',
+        position: 0,
+        isShown: true,
+        link: {
+            url: path(profileLink),
+            text: 'account.profileLink'
+        },
+        isActive: activeRoute is same as(profileLink)
+    },
+    profile_payment: {
+        group: 'profile',
+        position: 10,
+        isShown: true,
+        link: {
+            url: path(paymentLink),
+            text: 'account.paymentLink'
+        },
+        isActive: activeRoute is same as(paymentLink),
+    },
+    profile_address: {
+        group: 'profile',
+        position: 20,
+        isShown: not context.customer.extensions.enterpriseAccount,
+        link: {
+            url: path(addressesLink),
+            text: 'account.addressLink'
+        },
+        isActive: activeRoute is same as(addressesLink)
+    },
+    orders: {
+        position: 40,
+        link: {
+            text: 'account.ordersLink'
+        },
+        icon: 'history-solid',
+        isActive: activeRoute is same as(orderLink)
+                or pathInfo is same as(fastSaleSearchLink)
+                or pathInfo is same as(fastSaleImportLink)
+                or activeRoute is same as(orderListLink)
+                or activeRoute is same as(orderListLink)
+                or activeRoute is same as(subscriptionPageLink) or activeRoute is same as(subscriptionViewLink)
+    },
+    orders_all: {
+        group: 'orders',
+        position: 0,
+        isShown: true,
+        link: {
+            url: path(orderLink),
+            text: 'account.ordersLink'
+        },
+        isActive: activeRoute is same as(orderLink)
+    }
+} %}
+
+{% block component_b2baccount_menu_items %}
+{% endblock %}

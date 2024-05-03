@@ -1,0 +1,27 @@
+{
+    "account": {
+        "loggedInAs": "Logged in as",
+        "companyProfile": {
+            "title": "Company profile",
+            "workers": "Workers",
+            "address": "Address",
+            "roles": "Roles and rights managment",
+            "orderedDevices": "Ordered devices"
+        },
+        "overviewTitleB2b": "Wellcome to your account, %name%!",
+        "overviewInfoB2b": "For the management of your B2B account there are the following module available",
+        "subscriptionOrderType": "This order is an  Abo-order. For more information please visit the <a class='abo-overview-link' href='/account/subscription' >Abo</a> section.",
+        "lastOrder": {
+            "orderHeadline": "Order from",
+            "orderTitle": "Order details"
+        },
+        "newsletterTitle": "Newsletter Abonnement",
+        "newsletterSettings": "Yes, i want to receive regularly a Newsletter from TradelinePro at digital.manufaktur! (<span class='text-primary'><strong><u>Sign out</u></strong></span> is always possible.)",
+        "order": {
+            "orderItemColumnName": "Article",
+            "orderItemInfoId": "Art.-Nr",
+            "packUnit": "Pack unit",
+            "orderItemColumnPrice": "Item price"
+        }
+    }
+}

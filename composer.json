@@ -1,0 +1,31 @@
+{
+  "name": "tradelinepro/core",
+  "description": "Tradeline core plugin",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "digital.manufaktur GmbH",
+      "email": "hallo@digitalmanufaktur.com",
+      "homepage": "https://digitalmanufaktur.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "shopware/core": "~6.5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tradelinepro\\Core\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "Tradelinepro\\Core\\TradelineproCore",
+    "copyright": "digital.manufaktur GmbH",
+    "label": {
+      "de-DE": "Tradeline core Plugin",
+      "en-GB": "Tradeline core plugin"
+    }
+  },
+  "version": "0.9.0"
+}

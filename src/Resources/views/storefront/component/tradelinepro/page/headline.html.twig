@@ -1,0 +1,25 @@
+{% block component_page_headline %}
+    <div class="account-welcome">
+        {% block component_page_headline_children %}
+            {% block component_page_headline_title %}
+                <h1>
+                    {% block component_page_headline_title_text %}
+                        {{ title|trans|sw_sanitize }}
+                    {% endblock %}
+                </h1>
+            {% endblock %}
+
+            {% block component_page_headline_message %}
+                {% if message %}
+                    {% block component_page_headline_message_inner %}
+                        <p>
+                            {% block component_page_headline_message_text %}
+                                {{ message|trans|sw_sanitize }}
+                            {% endblock %}
+                        </p>
+                    {% endblock %}
+                {% endif %}
+            {% endblock %}
+        {% endblock %}
+    </div>
+{% endblock %}

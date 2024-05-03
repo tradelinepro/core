@@ -1,0 +1,31 @@
+{% block component_b2baccount_menu_submenu_item %}
+    {% if submenuItem.isShown %}
+        <div class="row user-menu-content">
+            {% block component_b2baccount_menu_submenu_item_content %}
+                {% block component_b2baccount_menu_submenu_item_content_icon %}
+                    <div class="pe-2 ps-3 pb-2 d-flex icon-container"></div>
+                {% endblock %}
+
+                {% block component_b2baccount_menu_submenu_item_content_link %}
+                    <div class="col ps-2 ps-md-0 link-container">
+                        {% if submenuItem.link.url %}
+                        <a href="{{ submenuItem.link.url }}"
+                           title="{{ submenuItem.link.text|trans|striptags }}"
+                           class="px-3 bg-transparent list-group-item list-group-item-action account-aside-item{%
+                               if submenuItem.isActive %} is-active{% endif %}">
+
+                            {{- submenuItem.link.text|trans|sw_sanitize -}}
+                        </a>
+                        {% else %}
+                        <span class="px-3 bg-transparent list-group-item list-group-item-action account-aside-item{%
+                            if submenuItem.isActive %} is-active{% endif %}">
+
+                            {{- submenuItem.link.text|trans|sw_sanitize -}}
+                        </span>
+                        {% endif %}
+                    </div>
+                {% endblock %}
+            {% endblock %}
+        </div>
+    {% endif %}
+{% endblock %}

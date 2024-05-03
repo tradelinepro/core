@@ -1,0 +1,19 @@
+{% sw_extends '@Storefront/storefront/page/account/_page.html.twig' %}
+
+{% block page_account_sidebar %}
+    {% set isB2bMenuActive = config('TradelineproCore.config.accountMenuEnabled') %}
+
+    {% if isB2bMenuActive %}
+        <div class="account-content-aside">
+            {% if context.customer and not context.customer.guest %}
+                {% sw_include '@Storefront/storefront/page/account/b2b/user-sidebar.html.twig' %}
+            {% endif %}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{%- block base_body_classes -%}
+    {{ parent() }}{% if config('TradelineproCore.config.accountMenuEnabled') %} b2b-menu-active{% endif %}
+{%- endblock -%}

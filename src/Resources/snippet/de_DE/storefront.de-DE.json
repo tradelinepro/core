@@ -1,0 +1,27 @@
+{
+    "account": {
+        "loggedInAs": "Angemeldet als",
+        "companyProfile": {
+            "title": "Unternehmensprofil",
+            "workers": "Mitarbeiter",
+            "address": "Adressen",
+            "roles": "Rollen und Rechteverwaltung",
+            "orderedDevices": "Bestellgeräte"
+        },
+        "overviewTitleB2b": "Willkommen in Ihrem Account, %name%!",
+        "overviewInfoB2b": "Für die Verwaltung Ihrer B2B-Umgebung stehen Ihnen die folgenden Module zur Verfügung.",
+        "subscriptionOrderType": "Diese Bestellung ist eine initiale Abo-Bestellung. Für weitere Informationen rufen Sie das <a class='abo-overview-link' href='/account/subscription' >Abo</a> auf.",
+        "lastOrder": {
+            "orderHeadline": "Bestellung vom",
+            "orderTitle": "Bestelldetails"
+        },
+        "newsletterTitle": "Newsletter Abonnement",
+        "newsletterSettings": "Ja, ich möchte regelmäßig den kostenloasen Newsletter von TradelinePro by digital.manufaktur erhalten! (<span class='text-primary'><strong><u>Abmeldung</u></strong></span> jederzeit möglich.)",
+        "order": {
+            "orderItemColumnName": "Artikel",
+            "orderItemInfoId": "Art.-Nr",
+            "packUnit": "VPE",
+            "orderItemColumnPrice": "Stückpreis"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{%- block component_tradelinepro_core_element_attributes -%}
+    {%- if attributes is iterable -%}
+        {%- for attributeName, attributeValue in attributes -%}
+            {%- if attributeValue is not same as(false) -%}
+
+                {%- if attributeValue is iterable -%}
+
+                    {%- set items = [] -%}
+
+                    {%- for key, value in attributeValue -%}
+                        {%- if value is not same as(false) -%}
+                            {%- if value is same as(true) -%}
+                                {% set items = items|merge([key]) %}
+                            {%- else -%}
+                                {% set items = items|merge([value]) %}
+                            {%- endif -%}
+                        {%- endif -%}
+                    {%- endfor -%}
+
+                    {%- if items -%}
+                        {%- set attributeValue = items|join(' ') -%}
+                    {%- else -%}
+                        {%- set attributeValue = null -%}
+                    {%- endif -%}
+
+                {%- elseif attributeValue is same as(true) -%}
+                    {{- (' ' ~ attributeName)|raw -}}
+
+                    {%- set attributeValue = null -%}
+                {%- endif -%}
+
+                {%- if attributeValue is not null -%}
+                    {{- (' ' ~ attributeName ~ '="' ~ attributeValue ~ '"')|raw -}}
+                {%- endif -%}
+
+            {%- endif -%}
+
+        {%- endfor -%}
+    {%- endif -%}
+{%- endblock -%}

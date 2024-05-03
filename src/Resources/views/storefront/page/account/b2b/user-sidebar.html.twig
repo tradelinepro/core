@@ -1,0 +1,34 @@
+{% sw_extends '@Storefront/storefront/page/account/sidebar.html.twig' %}
+
+{% block page_account_sidebar_header %}
+    {% if not headerWidget %}
+        {% sw_include '@Storefront/storefront/page/account/b2b/user-sidebar-account.html.twig' %}
+    {% endif %}
+{% endblock %}
+
+{% block page_account_sidebar_menu %}
+    {% if not context.customer.guest %}
+        {% sw_include '@Storefront/storefront/page/account/b2b/user-sidebar-menu.html.twig' with {
+            blockSidebarMenu: block('page_account_sidebar_menu_inner')| trim
+        } %}
+    {% endif %}
+{% endblock %}
+
+{% block page_account_sidebar_footer %}
+{% endblock %}
+
+{# remove links added dynamically in b2b/user-sidebar-menu.html.twig #}
+{% block page_account_sidebar_link_home %}
+{% endblock %}
+
+{% block page_account_sidebar_link_profile %}
+{% endblock %}
+
+{% block page_account_sidebar_link_address %}
+{% endblock %}
+
+{% block page_account_sidebar_link_payment %}
+{% endblock %}
+
+{% block page_account_sidebar_link_orders %}
+{% endblock %}

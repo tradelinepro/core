@@ -1,0 +1,198 @@
+.b2b-menu-active .account-content {
+    .account-content-aside {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .account-content-main {
+        margin-left: auto;
+        margin-right: auto;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: $spacer;
+        padding-right: $spacer;
+        padding-top: 2rem;
+
+        @include media-breakpoint-up(sm) {
+            padding-top: 2.5rem;
+        }
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    .b2b-menu-active .account-content {
+        .account-content-aside {
+            min-height: 43.75rem;
+            margin-bottom: -20px;
+            flex: 0 0 30%;
+            max-width: 30%;
+        }
+
+        .account-content-main {
+            flex: 0 0 70%;
+            max-width: 70%;
+        }
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .b2b-menu-active .account-content {
+        .account-content-aside {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        .account-content-main {
+            flex: 0 0 75%;
+            max-width: 75%;
+        }
+    }
+}
+
+.b2b-menu-active .user-sidebar-menu-container {
+    background-color: $white;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    a {
+        font-size: $font-size-base;
+        color: inherit;
+
+        &.list-group-item {
+            padding: 0.75rem 1.25rem;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .user-menu-header,
+    .user-menu-content {
+        border-bottom: 1px solid $sw-border-color;
+        flex-wrap: nowrap;
+        align-items: center;
+        display: flex;
+
+        .icon-container {
+            min-width: 50px;
+            min-height: 40px;
+            width: auto;
+        }
+
+        .trigger-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: $gray-600;
+            margin-right: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            .icon {
+                color: $white !important;
+            }
+
+            &:not(.is-active) {
+                .up-icon {
+                    display: block;
+                    cursor: pointer;
+                }
+
+                .down-icon {
+                    display: none;
+                    cursor: pointer;
+                }
+            }
+
+            &.collapsed {
+                .up-icon {
+                    display: none;
+                }
+
+                .down-icon {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .user-menu-header {
+        min-height: 41px;
+        position: relative;
+        user-select: none;
+
+        &.has-submenu {
+            cursor: pointer;
+        }
+
+        &:hover, &.active-accordeon, &.is-active {
+            .icon, a, .link-container>span {
+                color: $sw-color-brand-primary;
+            }
+        }
+
+        &.is-active {
+            .trigger-container {
+                background-color: $sw-color-brand-primary;
+
+                &.collapsed {
+                    .up-icon {
+                        display: none;
+                    }
+
+                    .down-icon {
+                        display: block;
+                    }
+                }
+                .up-icon {
+                    display: block;
+                }
+
+                .down-icon {
+                    display: none;
+                }
+            }
+
+            &:before {
+                content: "";
+                background-color: $sw-color-brand-primary;
+                display: block;
+                height: 100%;
+                width: 4px;
+                position: absolute;
+            }
+        }
+    }
+
+    .user-menu-content {
+        .link-container {
+            a {
+                border-radius: unset;
+                font-size: $font-size-base;
+
+                &:before {
+                    content: "";
+                    background-color: $sw-border-color;
+                    display: block;
+                    height: 100%;
+                    width: 1px;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                }
+
+                &.is-active {
+                    &:before {
+                        width: 4px;
+                        left: -1px;
+                        background-color: $sw-color-brand-primary;
+                    }
+                }
+            }
+        }
+    }
+}

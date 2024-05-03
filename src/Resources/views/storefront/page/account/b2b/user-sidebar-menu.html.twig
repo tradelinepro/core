@@ -1,0 +1,23 @@
+{% sw_extends '@Storefront/storefront/component/b2b-account/menu/config.html.twig'  %}
+
+{% block component_b2baccount_menu_items %}
+    {% block user_sidebar_menu_container %}
+        <div id="accordion" class="user-sidebar-menu-container" data-active-accordion="true">
+            {% block user_sidebar_menu_container_wrapper %}
+                {% set menuItems = groupAccountMenuItems(menuItems) %}
+                {% for menuId, menuItem in menuItems %}
+                    {% sw_include '@Storefront/storefront/component/b2b-account/menu/item.html.twig' %}
+                {% endfor %}
+            {% endblock %}
+
+            {# rest blocks from page_account_sidebar_menu_inner #}
+            {% if blockSidebarMenu | trim %}
+                <div class="row">
+                    <div class="col-12 p-0 flex-column">
+                        {{ blockSidebarMenu | raw }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% block page_account_sidebar_account %}
+    <div class="card-header account-aside-header py-4">
+        {% block page_account_user_sidebar_inner_container %}
+            <div class="row px-4">
+                {% block page_account_user_sidebar_logged_in_as %}
+                    <div class="account-aside-header-small col-12 px-0">
+                        {{ "account.loggedInAs"|trans|sw_sanitize }}:
+                    </div>
+                {% endblock %}
+                {% block page_account_user_sidebar_names %}
+                    <div class="customer-name-logout-name col-12 px-0 pt-1">
+                        {{ context.customer.firstName }}
+                        {{ context.customer.lastName }}
+                    </div>
+                {% endblock %}
+                {% if config('TradelineproEnterpriseAccount.config.isActive') %}
+                    {% set enterpriseAccounts = context.customer.extensions.enterpriseAccounts %}
+                    {% set enterpriseAccount = enterpriseAccounts.first %}
+
+                    {% if enterpriseAccounts|length > 0 %}
+                        {% block page_account_user_sidebar_company_name %}
+                            <div class="enterprise-account-group-name col-12 px-0">
+                                {{ enterpriseAccount.group.name }}
+                            </div>
+                        {% endblock %}
+                    {% endif %}
+
+                {% endif %}
+                {% block page_account_user_sidebar_logout_container %}
+                    {% if context.customer %}
+                        {% if not context.customer.guest %}
+                            <div class="account-aside-user-sidebar">
+                                {% block page_account_user_sidebar_logout %}
+                                    <a href="{{ path('frontend.account.logout.page') }}"
+                                       class="btn btn-link account-aside-btn">
+                                        {% sw_icon 'log-out' %}
+                                        {{ "account.logout"|trans|sw_sanitize }}
+                                    </a>
+                                {% endblock %}
+                            </div>
+                        {% else %}
+                            {% block page_account_user_sidebar_guest_abort %}
+                                <a href="{{ path('frontend.account.logout.page') }}"
+                                   data-account-guest-abort-button="true"
+                                   class="btn btn-link account-aside-btn">
+                                    {% sw_icon 'log-out' %}
+                                    {{ "account.guestAbort"|trans|sw_sanitize }}
+                                </a>
+                            {% endblock %}
+                        {% endif %}
+                    {% endif %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

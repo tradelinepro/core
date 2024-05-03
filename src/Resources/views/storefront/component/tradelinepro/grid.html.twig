@@ -1,0 +1,123 @@
+{%- block grid -%}
+    {%- block grid_container -%}
+        <div class="container grid{%- if class starts with '@' -%}{{ ' ' }} {% sw_include class ignore missing %}
+            {%- elseif class -%} {{ ' ' ~ class|raw }} {%- endif -%} "
+            {%- if template.attribute -%}
+                {%- sw_include template.attribute ignore missing -%}
+            {%- endif -%}>
+            {%- if entities|length > 0 -%}
+                {%- if head -%}
+                    {%- if head.template.before -%}
+                        {%- sw_include head.template.before ignore missing -%}
+                    {%- endif -%}
+                    <div class="{%- if head.class starts with '@' -%} {% sw_include head.class ignore missing %}
+                        {%- elseif head.class -%} {{ head.class|raw }} {%- endif -%}"
+                        {%- if head.template.attribute -%}
+                            {%- sw_include head.template.attribute ignore missing -%}
+                        {%- endif -%}>
+
+                        {%- for headElement in head.elements -%}
+                            {%- if headElement.template.innerBefore -%}
+                                {%- sw_include headElement.template.innerBefore ignore missing -%}
+                            {%- endif -%}
+
+                            <div class="{{ headElement.class|raw }}"
+                                {% if headElement.template.attribute %}
+                                    {% sw_include headElement.template.attribute ignore missing %}
+                                {% endif %}>
+                                {{- headElement.title|trans|sw_sanitize -}}
+                            </div>
+
+                            {%- if headElement.template.innerAfter -%}
+                                {%- sw_include headElement.template.innerAfter ignore missing -%}
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </div>
+
+                    {%- if head.template.after -%}
+                        {%- sw_include head.template.after ignore missing -%}
+                    {%- endif -%}
+                {%- endif -%}
+
+                {%- if body -%}
+                    {%- if body.template.wrapBefore -%}
+                        {%- sw_include body.template.wrapBefore ignore missing -%}
+                    {%- endif -%}
+
+                    {%- for entity in entities -%}
+                        {%- if body.template.before -%}
+                            {%- sw_include body.template.before ignore missing -%}
+                        {%- endif -%}
+
+                        <div class="{%- if body.class starts with '@' -%} {% sw_include body.class ignore missing %}
+                            {%- elseif body.class -%} {{ body.class|raw }} {%- endif -%}"
+                            {%- if body.template.attribute -%}
+                                {%- sw_include body.template.attribute ignore missing -%}
+                            {%- endif -%}>
+
+                            {%- for bodyElement in body.elements -%}
+                                {%- if bodyElement.template.innerBefore -%}
+                                    {%- sw_include bodyElement.template.innerBefore ignore missing -%}
+                                {%- endif -%}
+
+                                <div class="{{ bodyElement.class|raw }}"
+                                    {% if bodyElement.template.attribute%}
+                                        {% sw_include bodyElement.template.attribute ignore missing %}
+                                    {% endif %}>
+
+                                    {%- if bodyElement.title -%}
+                                        <strong class="d-sm-none">
+                                            {{- (bodyElement.title|trans|sw_sanitize) ~ ': ' -}}
+                                        </strong>
+                                    {%- endif -%}
+
+                                    {%- sw_include bodyElement.template.main -%}
+                                </div>
+
+                                {%- if bodyElement.template.innerAfter -%}
+                                    {%- sw_include bodyElement.template.innerAfter ignore missing -%}
+                                {%- endif -%}
+                            {%- endfor -%}
+                        </div>
+
+                        {%- if body.template.after -%}
+                            {%- sw_include body.template.after ignore missing -%}
+                        {%- endif -%}
+                    {%- endfor -%}
+
+                    {%- if body.template.wrapAfter -%}
+                        {%- sw_include body.template.wrapAfter ignore missing -%}
+                    {%- endif -%}
+                {%- endif -%}
+            {%- else -%}
+                {%- block grid_alert_row -%}
+                    <div class="row mt-3">
+                        {%- block grid_alert_col -%}
+                            <div class="col px-0">
+                                {%- block grid_alert -%}
+                                    {%- sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                                        type: alert.type ?? 'warning',
+                                        content: alert.message|trans|sw_sanitize,
+                                    } -%}
+                                {%- endblock -%}
+                            </div>
+                        {%- endblock -%}
+                    </div>
+                {%- endblock -%}
+            {%- endif -%}
+        </div>
+    {%- endblock -%}
+
+    {%- block grid_pagination_wrapper -%}
+        {%- if pagination and entities|length > 0 -%}
+            {%- block grid_pagination -%}
+                <div class="mt-3">
+                    {%- sw_include '@Storefront/storefront/component/tradelinepro/pagination.html.twig' with {
+                        baseUrl: pagination.baseUrl,
+                        total: pagination.total ?? 5,
+                    } -%}
+                </div>
+            {%- endblock -%}
+        {%- endif -%}
+    {%- endblock -%}
+{%- endblock -%}

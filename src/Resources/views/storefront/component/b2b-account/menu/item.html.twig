@@ -1,0 +1,75 @@
+{% block component_b2baccount_menu_item %}
+    <div class="row">
+        {% block component_b2baccount_menu_item_header %}
+            <div class="col p-0 user-menu-header{% if menuItem.isActive %} is-active{% endif %}{% if menuItem.submenu and menuItem.submenu|length %} has-submenu{% endif %}"
+                 data-bs-target="#collapseMenu{{ menuId }}Content"
+                 aria-expanded="true"
+                 aria-controls="collapseMenu{{ menuId }}Content"
+                 data-bs-toggle="collapse">
+                {% block component_b2baccount_menu_item_header_inner %}
+                    {% block component_b2baccount_menu_item_header_icon %}
+                        <div class="pe-2 ps-3 pb-2 d-flex icon-container">
+                            {%- sw_include '@Storefront/storefront/utilities/icon.html.twig' with {
+                                name: menuItem.icon,
+                                pack: 'account'
+                            } -%}
+                        </div>
+                    {% endblock %}
+
+                    <div class="ps-2 ps-md-0">
+                        {% block component_b2baccount_menu_item_header_link %}
+                            <div class="ps-0 link-container">
+                                {% set menuItemText %}
+                                    <span class="px-0 d-inline{% if menuItem.isActive %} is-active{% endif %}">
+                                        {{ menuItem.link.text|trans|sw_sanitize }}
+                                    </span>
+                                {% endset %}
+
+                                {% if menuItem.link.url %}
+                                    <a href="{{ menuItem.link.url }}"
+                                       title="{{ menuItem.link.text|trans|striptags }}">
+                                        {{ menuItemText }}
+                                    </a>
+                                {% else %}
+                                    {{ menuItemText }}
+                                {% endif %}
+                            </div>
+                        {% endblock %}
+
+                        {% if menuItem.submenu and menuItem.submenu|length  %}
+                            {% block component_b2baccount_menu_item_header_submenu %}
+                                <div id="collapseMenu{{ menuId }}"
+                                     class="trigger-container {% if not menuItem.isActive %} collapsed{% endif %}"
+                                     data-bs-target="#collapseMenu{{ menuId }}Content"
+                                     aria-expanded="true"
+                                     aria-controls="collapseMenu{{ menuId }}Content"
+                                     data-bs-toggle="collapse">
+
+                                    <span class="down-icon">
+                                        {% sw_icon 'chevron-down-xs-solid' style { 'size': 'xs', 'pack': 'account' } %}
+                                    </span>
+
+                                    <span class="up-icon">
+                                        {% sw_icon 'chevron-up-xs-solid' style { 'size': 'xs', 'pack': 'account' } %}
+                                    </span>
+                                </div>
+                            {% endblock %}
+                        {% endif %}
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+
+        {% block component_b2baccount_menu_item_submenu %}
+            {% if menuItem.submenu and menuItem.submenu|length  %}
+                <div id="collapseMenu{{ menuId }}Content"
+                     aria-labelledby="collapseMenu{{ menuId }}"
+                     class="col-12 accordeon-content {% if menuItem.isActive %}show{% else %}collapse{% endif %}">
+                    {% for submenuId, submenuItem in menuItem.submenu|sort((a, b) => a.position <=> b.position) %}
+                        {% sw_include '@Storefront/storefront/component/b2b-account/menu/submenu-item.html.twig' %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}

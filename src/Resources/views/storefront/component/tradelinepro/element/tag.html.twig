@@ -1,0 +1,59 @@
+{%- block component_tradelinepro_core_element_tag -%}
+    {%- if display is not defined or display is same as(true) -%}
+        <{{ name|raw }}{% sw_include '@Storefront/storefront/component/tradelinepro/element/attributes.html.twig' %}>
+
+        {%- if icon is defined -%}
+            {%- block component_tradelinepro_core_element_tag_icon -%}
+                {%- if icon.size -%}
+                    {%- set size = icon.size -%}
+                {%- endif -%}
+
+                {%- if icon.color -%}
+                    {%- set color = icon.color -%}
+                {%- endif -%}
+
+                {%- if icon.rotation -%}
+                    {%- set rotation = icon.rotation -%}
+                {%- endif -%}
+
+                {%- if icon.flip -%}
+                    {%- set flip = icon.flip -%}
+                {%- endif -%}
+
+                {%- if icon.class -%}
+                    {%- set class = icon.class -%}
+                {%- endif -%}
+
+                {%- if icon.pack -%}
+                    {%- set pack = icon.pack -%}
+                {%- endif -%}
+
+                {%- if icon.namespace -%}
+                    {%- set namespace = icon.namespace -%}
+                {%- endif -%}
+
+                {%- if icon.themeIconConfig -%}
+                    {%- set themeIconConfig = icon.themeIconConfig -%}
+                {%- endif -%}
+
+                {%- sw_include '@Storefront/storefront/utilities/icon.html.twig' with {
+                    name: icon.name,
+                } -%}
+            {%- endblock -%}
+        {%- endif -%}
+
+        {%- if text is defined -%}
+            {%- block component_tradelinepro_core_element_tag_text -%}
+                {%- if '.' in text -%}
+                    {{- text|trans|sw_sanitize -}}
+                {%- else -%}
+                    {{- text|raw -}}
+                {%- endif -%}
+            {%- endblock -%}
+        {%- endif -%}
+
+        {%- if text is defined or icon is defined -%}
+            </{{ name|raw }}>
+        {%- endif -%}
+    {%- endif -%}
+{%- endblock -%}

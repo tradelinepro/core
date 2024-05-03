@@ -1,0 +1,153 @@
+{%- block pagination_wrapper -%}
+    {%- if entities.total > total -%}
+        {%- set currentPage = ((entities.criteria.offset + 1) / entities.criteria.limit) | round(0, 'ceil') -%}
+        {%- set totalPages = (entities.total / entities.criteria.limit) | round(0, 'ceil') -%}
+        {%- set search = app.request.query.get('s') -%}
+
+        {%- block pagination -%}
+            <ul class="pagination">
+                {%- block pagination_first -%}
+                    <li class="page-item page-first{% if currentPage == 1 %} disabled{% endif %}">
+                        {%- block pagination_first_children -%}
+                            {%- if currentPage == 1 -%}
+                                {%- block pagination_first_children_placeholder -%}
+                                    <span class="page-link">
+                                        {%- block pagination_first_children_placeholder_icon -%}
+                                        {%- sw_icon 'arrow-medium-double-left' style { size: 'fluid', pack: 'solid' } -%}
+                                        {%- endblock -%}
+                                    </span>
+                                {%- endblock -%}
+                            {%- else -%}
+                                {%- block pagination_first_children_link -%}
+                                    <a href="{{ baseUrl }}{% if search %}?s={{ search }}{% endif %}" class="page-link">
+                                        {%- block pagination_first_children_link_icon -%}
+                                        {%- sw_icon 'arrow-medium-double-left' style { size: 'fluid', pack: 'solid' } -%}
+                                        {%- endblock -%}
+                                    </a>
+                                {%- endblock -%}
+                            {%- endif -%}
+                        {%- endblock -%}
+                    </li>
+                {%- endblock -%}
+
+                {%- block pagination_prev -%}
+                    <li class="page-item page-prev{% if currentPage == 1 %} disabled{% endif %}">
+                        {%- block pagination_prev_children -%}
+                            {%- if currentPage == 1 -%}
+                                {%- block pagination_prev_placeholder -%}
+                                    <span class="page-link">
+                                        {%- block pagination_prev_placeholder_icon -%}
+                                            {%- sw_icon 'arrow-medium-left' style { size: 'fluid', pack: 'solid' } -%}
+                                        {%- endblock -%}
+                                    </span>
+                                {%- endblock -%}
+                            {%- else -%}
+                                {%- block pagination_prev_link -%}
+                                    <a href="{{ baseUrl }}{% if currentPage > 2 or search %}?{% if currentPage > 2 %}p={{
+                                        (currentPage - 1)|raw }}{% endif %}{% if currentPage > 2 and search %}&amp;{% endif %}{%
+                                            if search %}s={{ search }}{% endif %}{% endif %}" class="page-link">
+                                        {%- block pagination_prev_link_icon -%}
+                                            {%- sw_icon 'arrow-medium-left' style { size: 'fluid', pack: 'solid' } -%}
+                                        {%- endblock -%}
+                                    </a>
+                                {%- endblock -%}
+                            {%- endif -%}
+                        {%- endblock -%}
+                    </li>
+                {%- endblock -%}
+
+                {%- block pagination_loop -%}
+                    {%- set start = currentPage - 2 -%}
+                    {%- if start <= 0 -%}
+                        {%- set start = currentPage - 1 -%}
+                        {%- if start <= 0 -%}
+                            {%- set start = currentPage -%}
+                        {%- endif -%}
+                    {%- endif -%}
+                    {%- set end = start + 4 -%}
+                    {%- if end > totalPages -%}
+                        {%- set end = totalPages -%}
+                    {%- endif -%}
+
+                    {%- for page in start..end -%}
+                        {%- block pagination_current -%}
+                            <li class="page-item{% if currentPage == page %} active{% endif %}">
+                                {%- block pagination_current_children -%}
+                                    {%- if currentPage == page -%}
+                                        {%- block pagination_current_placeholder -%}
+                                            <span class="page-link">
+                                                {%- block pagination_current_placeholder_text -%}
+                                                {{- page|raw -}}
+                                                {%- endblock -%}
+                                            </span>
+                                        {%- endblock -%}
+                                    {%- else -%}
+                                        {%- block pagination_current_link -%}
+                                            <a href="{{ baseUrl }}{% if page > 1 or search %}?{% if page > 1 %}p={{ page|raw }}{% endif %}{%
+                                                if page > 1 and search %}&amp;{% endif %}{% if search %}s={{ search }}{% endif %}{%
+                                                    endif %}" class="page-link">
+                                                {%- block pagination_current_link_text -%}
+                                                    {{- page|raw -}}
+                                                {%- endblock -%}
+                                            </a>
+                                        {%- endblock -%}
+                                    {%- endif -%}
+                                {%- endblock -%}
+                            </li>
+                        {%- endblock -%}
+                    {%- endfor -%}
+                {%- endblock -%}
+
+                {%- block pagination_next -%}
+                    <li class="page-item page-next{% if currentPage == totalPages %} disabled{% endif %}">
+                        {%- block pagination_next_children -%}
+                            {%- if currentPage == totalPages -%}
+                                {%- block pagination_next_placeholder -%}
+                                    <span class="page-link">
+                                        {%- block pagination_next_placeholder_icon -%}
+                                            {%- sw_icon 'arrow-medium-right' style { size: 'fluid', pack: 'solid' } -%}
+                                        {%- endblock -%}
+                                    </span>
+                                {%- endblock -%}
+                            {%- else -%}
+                                {%- block pagination_next_link -%}
+                                    <a href="{{ baseUrl }}?p={{ (currentPage + 1)|raw }}{% if search %}&amp;s={{ search }}{%
+                                        endif %}" class="page-link">
+                                        {%- block pagination_next_link_icon -%}
+                                            {%- sw_icon 'arrow-medium-right' style { size: 'fluid', pack: 'solid' } -%}
+                                        {%- endblock -%}
+                                    </a>
+                                {%- endblock -%}
+                            {%- endif -%}
+                        {%- endblock -%}
+                    </li>
+                {%- endblock -%}
+
+                {%- block pagination_last -%}
+                    <li class="page-item page-last{% if currentPage == totalPages %} disabled{% endif %}">
+                        {%- block pagination_last_children -%}
+                            {%- if currentPage == totalPages -%}
+                                {%- block pagination_last_placeholder -%}
+                                    <span class="page-link">
+                                        {%- block pagination_last_placeholder_icon -%}
+                                            {%- sw_icon 'arrow-medium-double-right' style { size: 'fluid', pack: 'solid' } -%}
+                                        {%- endblock -%}
+                                    </span>
+                                {%- endblock -%}
+                            {%- else -%}
+                                {%- block pagination_last_link -%}
+                                    <a href="{{ baseUrl }}?p={{ totalPages|raw }}{% if search %}&amp;s={{ search }}{%
+                                        endif %}" class="page-link">
+                                        {%- block pagination_last_link_icon -%}
+                                            {%- sw_icon 'arrow-medium-double-right' style { size: 'fluid', pack: 'solid' } -%}
+                                        {%- endblock -%}
+                                    </a>
+                                {%- endblock -%}
+                            {%- endif -%}
+                        {%- endblock -%}
+                    </li>
+                {%- endblock -%}
+            </ul>
+        {%- endblock -%}
+    {%- endif -%}
+{%- endblock -%}

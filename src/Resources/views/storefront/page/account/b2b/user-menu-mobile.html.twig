@@ -1,0 +1,9 @@
+{% sw_extends '@Storefront/storefront/page/account/b2b/user-sidebar-menu.html.twig'  %}
+
+{% block component_b2baccount_menu_items %}
+    {% if not headerWidget %}
+        {% sw_include '@Storefront/storefront/page/account/b2b/user-sidebar-account.html.twig' %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
